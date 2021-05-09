@@ -85,18 +85,18 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
             case R.id.record_list_btn:
                 if (isRecording) {
 
-                    AlertDialog.Builder alertDialog=new AlertDialog.Builder(getContext());
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
                     alertDialog.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            stopRecording();
+                            isRecording = false;
                             navController.navigate(R.id.action_recordFragment_to_audioListFragment);
                         }
                     });
-                    alertDialog.setNegativeButton("Cancel",null);
+                    alertDialog.setNegativeButton("Cancel", null);
                     alertDialog.setTitle("Audio Still Recording ");
                     alertDialog.setMessage("Are you sure ,you want to stop the recording");
-                    alertDialog.show();
+                    alertDialog.create().show();
                 } else {
                     navController.navigate(R.id.action_recordFragment_to_audioListFragment);
 
@@ -174,6 +174,9 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onStop() {
         super.onStop();
-        stopRecording();
+        if (isRecording) {
+            stopRecording();
+
+        }
     }
 }
